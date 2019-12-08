@@ -12,6 +12,7 @@ fn main() {
     for _i in 0..6 {
         secret.push(rng.gen_range(0, 10));
     }
+    //secret = [1, 1, 1, 4, 5, 6].to_owned().to_vec(); //DEBUG
 
     let mut counter: u32 = 1;
     loop {
@@ -73,7 +74,11 @@ fn main() {
 
         //if all 6 were in correct position, player wins!
         if correct_position == 6 {
-            println!("Congratulations! You guessed my number in {} tries!", counter);
+            if counter == 1 {
+                println!("Wow! You guessed my number in 1 try! Nice job!");
+            }else {
+                println!("Congratulations! You guessed my number in {} tries!", counter);
+            }
             exit(0);
         }
 
@@ -88,7 +93,7 @@ fn main() {
         }
 
         println!("Digits in correct position: {}", correct_position);
-        println!("Digits right but in position: {}", wrong_position);
+        println!("Digits right but in wrong position: {}", wrong_position);
         counter += 1;
     }
 }
