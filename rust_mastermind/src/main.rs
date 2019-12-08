@@ -10,10 +10,14 @@ fn main() {
     let stdin = io::stdin();
     let mut rng = rand::thread_rng();
 
-    let mut secret: [u32; 6];
-    for i in 0..6{
-        secret[i] = rng.gen_range(0, 10);
-    }
+    let secret: [u16; 6] = [
+        rng.gen_range(0, 10),
+        rng.gen_range(0, 10),
+        rng.gen_range(0, 10),
+        rng.gen_range(0, 10),
+        rng.gen_range(0, 10),
+        rng.gen_range(0, 10),
+    ];
     loop{
         let mut guess = String::new();
 
@@ -24,7 +28,7 @@ fn main() {
         if guess == "quit".to_string() {
             println!("Quitting...");
             for num in secret.iter(){
-                println!("{}", num);
+                print!("{}", num);
             }
             exit(0);
         }
