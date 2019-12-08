@@ -48,7 +48,25 @@ fn main() {
         }
 
         //convert guess number into array
-        let arr: Vec<u8> = number_to_vec_u8(guess);
+        let guess_arr: Vec<u8> = number_to_vec_u8(guess);
+
+        //initialize reply values
+        let mut correct_position: u32 = 0;
+        let mut wrong_position: u32 = 0;
+
+        //number right and in correct position
+        for i in 0..6{
+            if secret[i] == guess_arr[i] {
+                correct_position += 1;
+            }
+        }
+
+        //if all 6 were in correct position, player wins!
+        if correct_position == 6{
+            println!("Congratulations! You guessed my number!");
+            exit(0);
+        }
+        
 
     }
 }
