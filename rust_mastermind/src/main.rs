@@ -19,19 +19,27 @@ fn main() {
         rng.gen_range(0, 10),
     ];
     loop{
-        let mut guess = String::new();
+        let mut input = String::new();
 
-        println!("Please guess a 6 digit number or type 'quit'.");
-        stdin.read_line(&mut guess).expect("Input failed");
-        let guess = guess.trim();
+        println!("Please guess a 6 digit number or type 'quit' to stop playing.");
+        stdin.read_line(&mut input).expect("Input failed");
+        let input = input.trim();
 
-        if guess == "quit".to_string() {
+        if input == "quit".to_string() {
             println!("Quitting...");
+            print!("Secret number was: ");
             for num in secret.iter(){
                 print!("{}", num);
             }
             exit(0);
         }
+        let guess: u32 = match input.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("That's not a number!");
+                continue;
+            },
+        };
     }
 
 
