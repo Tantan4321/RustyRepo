@@ -9,7 +9,7 @@ fn main() {
     let mut rng = rand::thread_rng();
 
     let mut secret: Vec<u8> = Vec::new();
-    for i in 0..6 {
+    for _i in 0..6 {
         secret.push(rng.gen_range(0, 10));
     }
 
@@ -32,7 +32,7 @@ fn main() {
         }
 
         //check if input is actually a number
-        let guess: u32 = match input.trim().parse() {
+        let _guess: u32 = match input.trim().parse() {
             Ok(num) => num,
             Err(_) => {
                 println!("That's not a number!");
@@ -47,7 +47,7 @@ fn main() {
         }
 
         //convert guess number into array
-        let guess_arr: Vec<u8> = number_to_vec_u8(guess);
+        let guess_arr: Vec<u8> = guess_to_vec_u8(input.to_string());
 
         //initialize reply values
         let mut correct_position: u32 = 0;
@@ -60,6 +60,7 @@ fn main() {
         //determine number right and in correct position
         for i in 0..6 {
             if secret[i] == guess_arr[i] {
+                let this_digit = guess_arr[i];
                 correct_position += 1;
                 let index = temp_secret.iter()
                     .position(|x| *x == this_digit).unwrap();
@@ -81,7 +82,7 @@ fn main() {
             if temp_secret.contains(&digit) {
                 wrong_position += 1;
                 let index = temp_secret.iter()
-                    .position(|x| *x == this_digit).unwrap();
+                    .position(|x| *x == digit).unwrap();
                 temp_secret.remove(index); //pop digit so that it can't used again
             }
         }
@@ -93,14 +94,11 @@ fn main() {
 }
 
 
-fn number_to_vec_u8(n: u32) -> Vec<u8> {
-    let mut digits: Vec<u8> = Vec::new();
-    let mut n = n;
-    while n > 9 {
-        digits.push((n % 10) as u8);
-        n = n / 10;
+fn guess_to_vec_u8(n: String) -> Vec<u8> {
+    let mut ret: Vec<u8> = Vec::new();
+    for i in 0..n.len(){
+        let splice = &n[i..i+1];
+        ret.push(splice.to_string().parse::<u8>().unwrap());
     }
-    digits.push(n as u8);
-    digits.reverse();
-    digits
+    ret
 }
