@@ -10,14 +10,11 @@ fn main() {
     let stdin = io::stdin();
     let mut rng = rand::thread_rng();
 
-    let secret: [u16; 6] = [
-        rng.gen_range(0, 10),
-        rng.gen_range(0, 10),
-        rng.gen_range(0, 10),
-        rng.gen_range(0, 10),
-        rng.gen_range(0, 10),
-        rng.gen_range(0, 10),
-    ];
+    let mut secret: Vec<u8> = Vec::new();;
+    for i in 0..6{
+        secret.push(rng.gen_range(0, 10));
+    }
+
     loop{
         let mut input = String::new();
 
@@ -49,26 +46,22 @@ fn main() {
             println!("Not a 6 digit number");
             continue;
         }
+
+        //convert guess number into array
+        let arr: Vec<u8> = number_to_vec_u8(guess);
+
     }
+}
 
 
-
-
-/*
-    let mut guess = String::new();
-    let stdin = io::stdin();
-
-    stdin.read_line(&mut guess).expect("Input failed");
-    let guess: u32 = guess.trim().parse()
-        .expect("Please type a number!");
-
-    println!("Your guess: {}", guess);
-    if guess == rand_number {
-        println!("Correct! You win!");
-    }else {
-        println!("Incorrect! The number was {}", rand_number);
+fn number_to_vec_u8(n: u32) -> Vec<u8> {
+    let mut digits: Vec<u8> = Vec::new();
+    let mut n = n;
+    while n > 9 {
+        digits.push((n % 10) as u8);
+        n = n / 10;
     }
-
-    exit(0);
-    */
+    digits.push(n as u8);
+    digits.reverse();
+    digits
 }
