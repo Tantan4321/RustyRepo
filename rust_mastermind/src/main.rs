@@ -25,6 +25,7 @@ fn main() {
         stdin.read_line(&mut input).expect("Input failed");
         let input = input.trim();
 
+        //check if user wants to quit
         if input == "quit".to_string() {
             println!("Quitting...");
             print!("Secret number was: ");
@@ -33,6 +34,8 @@ fn main() {
             }
             exit(0);
         }
+
+        //check if input is actually a number
         let guess: u32 = match input.trim().parse() {
             Ok(num) => num,
             Err(_) => {
@@ -40,6 +43,12 @@ fn main() {
                 continue;
             },
         };
+
+        //check if input was 6 digits
+        if input.len() != 6{
+            println!("Not a 6 digit number");
+            continue;
+        }
     }
 
 
