@@ -1,7 +1,11 @@
+extern crate reqwest;
+
 fn main() {
-    scrap_team_data("https://placeholder.com");
+    scrape_team_data("https://placeholder.com");
 }
 
-fn scrap_team_data(url: &str) {
-    let mut resp;
+fn scrape_team_data(url: &str) {
+    let mut resp = reqwest::get(url).unwrap();
+    assert!(resp.status().is_success());
+
 }
